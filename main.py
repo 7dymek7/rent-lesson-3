@@ -109,32 +109,7 @@ class Manager:
         self.tenants = Tenant.from_json_file(self.parameters.tenants_json_path)
         self.transfers = Transfer.from_json_file(self.parameters.transfers_json_path)
         self.bills = Bill.from_json_file(self.parameters.bills_json_path)
-
-
-if __name__ == '__main__':
-    parameters = Parameters()
-    manager = Manager(parameters)
-
-    for apartment in manager.apartments.values():
-        print(f'---{apartment.key}---')
-        print(f'Apartment: {apartment.name} - {apartment.location}, {apartment.area_m2} m2')
-        print('Rooms:')
-        for room in apartment.rooms.values():
-            print(f' {room.name}: {room.area_m2} m2')
-            
-        print(f'---{apartment.key} bills---')
-        for bill in manager.bills:
-            if bill.apartment == apartment.key:
-                print(f'  {bill.amount_pln} PLN due {bill.date_due} ({bill.settlement_year}-{bill.settlement_month:02d}) - {bill.type}')
-    print(f'\n---tenants---')
-    for tenant in manager.tenants.values():
-        print(f'{tenant.name} - Apartment: {tenant.apartment}, Room: {tenant.room}')
-        print(f'  Rent: {tenant.rent_pln} PLN, Deposit: {tenant.deposit_pln} PLN')
-        print(f'  Agreement: {tenant.date_agreement_from} to {tenant.date_agreement_to}')
-        for transfer in manager.transfers:
-            if transfer.tenant == tenant.name:
-                print(f'  {transfer.amount_pln} PLN on {transfer.date} ({transfer.settlement_year}-{transfer.settlement_month:02d})')
-                
+        
 class ApartmentSettlement:
     def __init__(self, apartment_id, month, year, bills_total, rents_total):
         self.apartment_id = apartment_id

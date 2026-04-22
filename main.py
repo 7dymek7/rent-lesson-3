@@ -135,3 +135,24 @@ if __name__ == '__main__':
             if transfer.tenant == tenant.name:
                 print(f'  {transfer.amount_pln} PLN on {transfer.date} ({transfer.settlement_year}-{transfer.settlement_month:02d})')
                 
+class ApartmentSettlement:
+    def __init__(self, apartment_id, month, year, bills_total, rents_total):
+        self.apartment_id = apartment_id
+        self.month = month
+        self.year = year
+        self.bills_total = bills_total
+        self.rents_total = rents_total
+        self.amount_due = bills_total + rents_total
+
+    def __repr__(self):
+        return (
+            "\n==============================\n"
+            f"  ROZLICZENIE MIESZKANIA #{self.apartment_id}\n"
+            "------------------------------\n"
+            f"  Miesiąc:        {self.month}/{self.year}\n"
+            f"  Rachunki:       {self.bills_total} zł\n"
+            f"  Czynsze:        {self.rents_total} zł\n"
+            "------------------------------\n"
+            f"  Do zapłaty:     {self.amount_due} zł\n"
+            "==============================\n"
+        )

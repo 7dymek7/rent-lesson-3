@@ -83,6 +83,16 @@ class Bill(BaseModel):
         return [Bill(**bill) for bill in data]
 
 
+class TenantSettlement(BaseModel):
+    tenant: str
+    month: int
+    year: int
+    apartment_settlement: str
+    amount_due: Dict[str, float]
+    total_transfers: float
+    balance: float 
+
+
 class Manager:
     def __init__(self, parameters: Parameters):
         self.parameters = parameters 
@@ -120,16 +130,3 @@ if __name__ == '__main__':
             if transfer.tenant == tenant.name:
                 print('  ', transfer.amount_pln, transfer.date, transfer.settlement_year, transfer.settlement_month)
                 
-class ApartmentSettlement:
-    def __init__(self, apartment_id, month, year, bills_total, rents_total):
-        self.apartment_id = apartment_id
-        self.month = month
-        self.year = year
-        self.bills_total = bills_total
-        self.rents_total = rents_total
-        self.amount_due = bills_total + rents_total
-
-    def __repr__(self):
-        return (f"ApartmentSettlement(apartment={self.apartment_id}, "
-                f"{self.month}/{self.year}, bills={self.bills_total}, "
-                f"rents={self.rents_total}, due={self.amount_due})")
